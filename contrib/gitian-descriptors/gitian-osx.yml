@@ -29,7 +29,7 @@ packages:
 - "fonts-tuffy"
 remotes:
 - "url": "https://github.com/StakingLab/stakinglab-coin.git"
-  "dir": "labx"
+  "dir": "stakinglab-coin"
 files:
 - "MacOSX10.11.sdk.tar.gz"
 script: |
