@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Name=Stakniglab Core
+Comment=LABX P2P Cryptocurrency
+Comment[fr]=LABX, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=LABX, eşten eşe kriptografik sanal para birimi
+Exec=labx-qt %u
+Terminal=false
+Type=Application
+Icon=labx128
+MimeType=x-scheme-handler/labx;
+Categories=Office;Finance;
+StartupWMClass=Stakinglab-qt

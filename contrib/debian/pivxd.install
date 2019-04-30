@@ -1,0 +1,3 @@
+usr/local/bin/labxd usr/bin
+usr/local/bin/labx-cli usr/bin
+debian/examples/labx.conf etc/labx
