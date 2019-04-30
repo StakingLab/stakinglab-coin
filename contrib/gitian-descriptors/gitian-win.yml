@@ -24,7 +24,7 @@ packages:
 - "rename"
 remotes:
 - "url": "https://github.com/StakingLab/stakinglab-coin.git"
-  "dir": "labx"
+  "dir": "stakinglab-coin"
 files: []
 script: |
   WRAP_DIR=$HOME/wrapped
