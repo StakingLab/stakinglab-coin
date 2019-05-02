@@ -135,7 +135,7 @@ bool CheckProofOfWork(uint256 hash, unsigned int nBits)
     // Check proof of work matches claimed amount
     if (hash > bnTarget) {
 
-        printf("bankTraget = %u \n", bnTarget);
+//        printf("bankTraget = %u \n", bnTarget);
 
         if (Params().MineBlocksOnDemand())
             return false;
