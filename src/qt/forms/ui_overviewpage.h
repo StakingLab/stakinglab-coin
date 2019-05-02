@@ -527,7 +527,7 @@ public:
         labelzBalanceMatureText = new QLabel(frame_ZerocoinBalances);
         labelzBalanceMatureText->setObjectName(QStringLiteral("labelzBalanceMatureText"));
 
-        gridLayout_5->addWidget(labelzBalanceMatureText, 1, 0, 1, 1);
+//        gridLayout_5->addWidget(labelzBalanceMatureText, 1, 0, 1, 1);
 
         labelzBalanceMature = new QLabel(frame_ZerocoinBalances);
         labelzBalanceMature->setObjectName(QStringLiteral("labelzBalanceMature"));
@@ -535,12 +535,12 @@ public:
 //        labelzBalanceMature->setText(QString::fromUtf8("0.000\342\200\211000\342\200\21100 LABX"));
         labelzBalanceMature->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout_5->addWidget(labelzBalanceMature, 1, 1, 1, 1);
+//        gridLayout_5->addWidget(labelzBalanceMature, 1, 1, 1, 1);
 
         labelzBalanceUnconfirmedText = new QLabel(frame_ZerocoinBalances);
         labelzBalanceUnconfirmedText->setObjectName(QStringLiteral("labelzBalanceUnconfirmedText"));
 
-        gridLayout_5->addWidget(labelzBalanceUnconfirmedText, 2, 0, 1, 1);
+//        gridLayout_5->addWidget(labelzBalanceUnconfirmedText, 2, 0, 1, 1);
 
         labelzBalanceUnconfirmed = new QLabel(frame_ZerocoinBalances);
         labelzBalanceUnconfirmed->setObjectName(QStringLiteral("labelzBalanceUnconfirmed"));
@@ -548,12 +548,12 @@ public:
         labelzBalanceUnconfirmed->setText(QString::fromUtf8("0.000\342\200\211000\342\200\21100 LABX"));
         labelzBalanceUnconfirmed->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout_5->addWidget(labelzBalanceUnconfirmed, 2, 1, 1, 1);
+//        gridLayout_5->addWidget(labelzBalanceUnconfirmed, 2, 1, 1, 1);
 
         labelzBalanceImmatureText = new QLabel(frame_ZerocoinBalances);
         labelzBalanceImmatureText->setObjectName(QStringLiteral("labelzBalanceImmatureText"));
 
-        gridLayout_5->addWidget(labelzBalanceImmatureText, 3, 0, 1, 1);
+//        gridLayout_5->addWidget(labelzBalanceImmatureText, 3, 0, 1, 1);
 
         labelzBalanceImmature = new QLabel(frame_ZerocoinBalances);
         labelzBalanceImmature->setObjectName(QStringLiteral("labelzBalanceImmature"));
@@ -566,7 +566,7 @@ public:
         labelzBalanceText = new QLabel(frame_ZerocoinBalances);
         labelzBalanceText->setObjectName(QStringLiteral("labelzBalanceText"));
 
-        gridLayout_5->addWidget(labelzBalanceText, 4, 0, 1, 1);
+//        gridLayout_5->addWidget(labelzBalanceText, 4, 0, 1, 1);
 
         labelzBalance = new QLabel(frame_ZerocoinBalances);
         labelzBalance->setObjectName(QStringLiteral("labelzBalance"));
@@ -576,14 +576,14 @@ public:
         labelzBalance->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
         labelzBalance->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
-        gridLayout_5->addWidget(labelzBalance, 4, 1, 1, 1);
+//        gridLayout_5->addWidget(labelzBalance, 4, 1, 1, 1);
 
         horizontalSpacer_4 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        gridLayout_5->addItem(horizontalSpacer_4, 4, 2, 1, 1);
+//        gridLayout_5->addItem(horizontalSpacer_4, 4, 2, 1, 1);
 
 
-        verticalLayout_7->addLayout(gridLayout_5);
+//        verticalLayout_7->addLayout(gridLayout_5);
 
         verticalSpacer_4 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
