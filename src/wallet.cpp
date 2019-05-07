@@ -3078,14 +3078,19 @@ bool CWallet::CreateCoinStake(
             if (nBytes >= DEFAULT_BLOCK_MAX_SIZE / 5)
                 return error("CreateCoinStake : exceeded coinstake size limit");
 
+            int idxProofProofStake = txNew.vout.size() - 1;
+
             //Masternode payment
             FillBlockPayee(txNew, nMinFee, true, stakeInput->IsZLABX());
 
             //Make Dev Fee Payment
             DevFee devFee;
 
-            int idxProofProofStake = txNew.vout.size() - 1;
             const CBlockIndex* pIndex0 = chainActive.Tip();
+
+            if(pIndex0->nHeight < 12500) {
+                idxProofProofStake = txNew.vout.size() - 1;
+            }
 
             devFee.Create(txNew, idxProofProofStake, pIndex0->nHeight);
 
