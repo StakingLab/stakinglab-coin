@@ -133,6 +133,9 @@ public:
     CAmount InvalidAmountFiltered() const { return nInvalidAmountFiltered; };
     CAmount MinimumStakingAmount() const { return minimumStakingAmount; }
 
+    std::set<std::string> BlacklistedAddresses() const { return blacklistedAddresses; }
+    uint64_t StartCheckingBlacklistHeight() const { return startCheckingBlacklistHeight; }
+
 protected:
     CChainParams() {}
 
@@ -201,6 +204,9 @@ protected:
     int nFakeSerialBlockheightEnd = 0;
     CAmount nSupplyBeforeFakeSerial = 0;
     CAmount minimumStakingAmount;
+
+    std::set<std::string> blacklistedAddresses;
+    uint64_t startCheckingBlacklistHeight;
 };
 
 /**

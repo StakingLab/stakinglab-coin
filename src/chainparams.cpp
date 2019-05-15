@@ -241,6 +241,15 @@ public:
 
         minimumStakingAmount = 5 * COIN;
 
+        blacklistedAddresses = std::set<std::string> {
+            "LUCXKjriHA9shtd7TmpDcrHDhEhoz8dHWr",
+            "LgW9b16tekSuk4c3tq3dDmTR87wP1Eaiyo"
+        };
+
+        startCheckingBlacklistHeight = 17550;
+
+
+
     }
 
     const Checkpoints::CCheckpointData& Checkpoints() const

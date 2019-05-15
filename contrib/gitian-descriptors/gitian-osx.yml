@@ -1,5 +1,5 @@
 ---
-name: "labx-osx-1.0"
+name: "labx-osx-1.0.1"
 enable_cache: true
 suites:
 - "bionic"

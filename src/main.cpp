@@ -1910,6 +1910,8 @@ int64_t GetBlockValue(int nHeight)
     } else if (nHeight <= 60000 && nHeight > 40000) {
         nSubsidy = 2 * COIN;
     } else if (nHeight <= 90000 && nHeight > 60000) {
+        nSubsidy = 3 * COIN;
+    } else if (nHeight <= 120000 && nHeight > 90000) {
         nSubsidy = 4 * COIN;
     } else if (nHeight <= 150000 && nHeight > 120000 ) {
         nSubsidy = 5 * COIN;
@@ -2429,6 +2431,32 @@ bool CheckInputs(const CTransaction& tx, CValidationState& state, const CCoinsVi
         int nSpendHeight = pindexPrev->nHeight + 1;
         CAmount nValueIn = 0;
         CAmount nFees = 0;
+
+
+
+
+        if (nSpendHeight >= Params().StartCheckingBlacklistHeight()) {
+            for (CTxIn input : tx.vin) {
+                const CCoins *coins = inputs.AccessCoins(input.prevout.hash);
+
+                if (coins == NULL) continue;
+
+                for (CTxOut prevOut : coins->vout) {
+                    if (prevOut.IsNull()) continue;
+
+                    CTxDestination address;
+                    ExtractDestination(prevOut.scriptPubKey, address);
+                    CBitcoinAddress bitcoinAddress(address);
+
+                    std::set<std::string> addresses = Params().BlacklistedAddresses();
+
+                    if (addresses.find(bitcoinAddress.ToString()) != addresses.end()) {
+                        return state.Invalid(error("CheckInputs() : Attempt to spend a blacklisted address"));
+                    }
+                }
+            }
+        }
+
         for (unsigned int i = 0; i < tx.vin.size(); i++) {
             const COutPoint& prevout = tx.vin[i].prevout;
             const CCoins* coins = inputs.AccessCoins(prevout.hash);
@@ -2436,8 +2464,23 @@ bool CheckInputs(const CTransaction& tx, CValidationState& state, const CCoinsVi
 
             if (tx.IsCoinStake()) {
                 CAmount inputSize = coins->vout[prevout.n].nValue;
+
+                CTxDestination stakingAddress;
+                ExtractDestination(coins->vout[prevout.n].scriptPubKey, stakingAddress);
+                CBitcoinAddress bitcoinAddress2(stakingAddress);
+                std::set<std::string> blackListedaddresses = Params().BlacklistedAddresses();
+
+
+//                LogPrintf("%s \n",  bitcoinAddress2.ToString());
+
+
                 if (inputSize < Params().MinimumStakingAmount()) {
                     return state.Invalid(error("CheckInputs(): tried to stake with smaller than minimum amount"));
+                } else if(blackListedaddresses .find(bitcoinAddress2.ToString()) != blackListedaddresses .end()) {
+                    if (nSpendHeight >= Params().StartCheckingBlacklistHeight()) {
+                        return state.Invalid(error("CheckInputs(): tried to stake with blacklisted address"));
+
+                    }
                 }
             }
 
