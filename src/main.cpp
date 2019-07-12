@@ -1907,20 +1907,30 @@ int64_t GetBlockValue(int nHeight)
         nSubsidy = 10 * COIN;
     } else if (nHeight <= 40000 && nHeight > 20000) {
         nSubsidy = 1.5 * COIN;
-    } else if (nHeight <= 60000 && nHeight > 40000) {
+    } else if (nHeight <= 65000 && nHeight > 40000) {
         nSubsidy = 2 * COIN;
-    } else if (nHeight <= 90000 && nHeight > 60000) {
-        nSubsidy = 3 * COIN;
-    } else if (nHeight <= 120000 && nHeight > 90000) {
+    } else if (nHeight <= 70000 && nHeight > 65000) {
         nSubsidy = 4 * COIN;
-    } else if (nHeight <= 150000 && nHeight > 120000 ) {
-        nSubsidy = 5 * COIN;
-    }  else if (nHeight <= 2250001 && nHeight > 150000 ) {
+    } else if (nHeight <= 80000 && nHeight > 70000) {
+        nSubsidy = 6 * COIN;
+    } else if (nHeight <= 90000 && nHeight > 80000) {
+        nSubsidy = 8 * COIN;
+    } else if (nHeight <= 100000 && nHeight > 90000) {
         nSubsidy = 10 * COIN;
-    }
-    else {
+    } else if (nHeight <= 120000 && nHeight > 100000) {
+        nSubsidy = 15 * COIN;
+    } else if (nHeight <= 140000 && nHeight > 120000) {
+        nSubsidy = 20 * COIN;
+    } else if (nHeight <= 180000 && nHeight > 140000) {
+        nSubsidy = 18 * COIN;
+    } else if (nHeight <= 220000 && nHeight > 180000) {
+        nSubsidy = 16 * COIN;
+    } else if (nHeight <= 300000 && nHeight > 220000) {
+        nSubsidy = 14 * COIN;
+    } else {
         nSubsidy = 0 * COIN;
     }
+
     return nSubsidy;
 }
 
@@ -1935,7 +1945,7 @@ CAmount GetSeeSaw(const CAmount& blockValue, int nMasternodeCount, int nHeight)
     }
 
     int64_t nMoneySupply = chainActive.Tip()->nMoneySupply;
-    int64_t mNodeCoins = nMasternodeCount * 2000 * COIN;
+    int64_t mNodeCoins = nMasternodeCount * GetMasternodeCollateral(chainActive.Height()) * COIN;
 
     // Use this log to compare the masternode count for different clients
     //LogPrintf("Adjusting seesaw at height %d with %d masternodes (without drift: %d) at %ld\n", nHeight, nMasternodeCount, nMasternodeCount - Params().MasternodeCountDrift(), GetTime());

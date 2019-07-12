@@ -59,6 +59,10 @@ bool GetBlockHash(uint256& hash, int nBlockHeight)
 
 int GetMasternodeCollateral(int nHeight)
 {
+    if(nHeight > 140000) {
+        return 4000;
+    }
+
     return 2000;
 }
 
