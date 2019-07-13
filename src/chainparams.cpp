@@ -131,7 +131,7 @@ public:
         nTargetSpacing = 2 * 60;  // LABX: 1 minute
         nMaturity = 15;
         nMasternodeCountDrift = 20;
-        nMaxMoneyOut = 20999999 * COIN;
+        nMaxMoneyOut = 2500627 * COIN;
 
         /** Height or Time Based Activations **/
         nLastPOWBlock = 150;
