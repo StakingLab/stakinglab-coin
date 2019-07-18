@@ -24,7 +24,7 @@ void DevFee::Create(CMutableTransaction& txNew, const int idxProofOfStake, const
 
 bool DevFee::Validate(const CBlock& block, const int nBlockHeight)
 {
-    CAmount nReward = GetBlockValue(nBlockHeight - 1);
+    CAmount nReward = GetBlockValue(nBlockHeight);
 
     int i = block.vtx[1].vout.size();
     CAmount nExpectedAmount = nReward * fPercentage;
