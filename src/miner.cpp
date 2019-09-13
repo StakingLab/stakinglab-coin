@@ -119,7 +119,13 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, CWallet* pwallet, 
 
     // Make sure to create the correct block version after zerocoin is enabled
     bool fZerocoinActive = nHeight >= Params().Zerocoin_StartHeight();
-    pblock->nVersion = 5;   // Supports CLTV activation
+
+
+    if(Params().IsStakeModifierV2(nHeight)) {
+        pblock->nVersion = 6;       //!> Supports V2 Stake Modifiers.
+    } else {
+        pblock->nVersion = 5;       //!> Supports CLTV activation
+    }
 
     // -regtest only: allow overriding block.nVersion with
     // -blockversion=N to test forking scenarios
@@ -219,10 +225,14 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, CWallet* pwallet, 
             CAmount nTotalIn = 0;
             bool fMissingInputs = false;
             uint256 txid = tx.GetHash();
+            bool hasZerocoinSpends = tx.HasZerocoinSpendInputs();
+
+            if (hasZerocoinSpends)
+                nTotalIn = tx.GetZerocoinSpent();
+
             for (const CTxIn& txin : tx.vin) {
                 //zerocoinspend has special vin
-                if (tx.IsZerocoinSpend()) {
-                    nTotalIn = tx.GetZerocoinSpent();
+                if (hasZerocoinSpends) {
 
                     //Give a high priority to zerocoinspends to get into the next block
                     //Priority = (age^6+100000)*amount - gives higher priority to zpivs that have been in mempool long
@@ -346,7 +356,7 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, CWallet* pwallet, 
             double dPriorityDelta = 0;
             CAmount nFeeDelta = 0;
             mempool.ApplyDeltas(hash, dPriorityDelta, nFeeDelta);
-            if (!tx.IsZerocoinSpend() && fSortedByFee && (dPriorityDelta <= 0) && (nFeeDelta <= 0) && (feeRate < ::minRelayTxFee) && (nBlockSize + nTxSize >= nBlockMinSize))
+            if (!tx.HasZerocoinSpendInputs() && fSortedByFee && (dPriorityDelta <= 0) && (nFeeDelta <= 0) && (feeRate < ::minRelayTxFee) && (nBlockSize + nTxSize >= nBlockMinSize))
                 continue;
 
             // Prioritise by fee once past the priority size or we run out of high-priority
@@ -362,7 +372,7 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, CWallet* pwallet, 
                 continue;
 
             // double check that there are no double spent zLABX spends in this block or tx
-            if (tx.IsZerocoinSpend()) {
+            if (tx.HasZerocoinSpendInputs()) {
                 int nHeightTx = 0;
                 if (IsTransactionInChain(tx.GetHash(), nHeightTx))
                     continue;

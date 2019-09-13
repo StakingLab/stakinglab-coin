@@ -14,6 +14,7 @@
 #include <assert.h>
 
 #include <boost/assign/list_of.hpp>
+#include <limits>
 
 using namespace std;
 using namespace boost::assign;
@@ -102,6 +103,18 @@ libzerocoin::ZerocoinParams* CChainParams::Zerocoin_Params(bool useModulusV1) co
     return &ZCParamsDec;
 }
 
+
+bool CChainParams::HasStakeMinAgeOrDepth(const int contextHeight, const uint32_t contextTime,
+                                         const int utxoFromBlockHeight, const uint32_t utxoFromBlockTime) const
+{
+    // before stake modifier V2, the age required was 60 * 60 (1 hour) / not required on regtest
+    if (!IsStakeModifierV2(contextHeight))
+        return (NetworkID() == CBaseChainParams::REGTEST || (utxoFromBlockTime + 3600 <= contextTime));
+
+    // after stake modifier V2, we require the utxo to be nStakeMinDepth deep in the chain
+    return (contextHeight - utxoFromBlockHeight >= nStakeMinDepth);
+}
+
 class CMainParams : public CChainParams
 {
 public:
@@ -127,9 +140,11 @@ public:
         nRejectBlockOutdatedMajority = 10260; // 95%
         nToCheckBlockUpgradeMajority = 10800; // Approximate expected amount of blocks in 7 days (1440*7.5)
         nMinerThreads = 0;
-        nTargetTimespan = 2 * 60; // LABX: 1 day
         nTargetSpacing = 2 * 60;  // LABX: 1 minute
         nMaturity = 15;
+        nStakeMinDepth = 600;
+        nFutureTimeDriftPoW = 7200;
+        nFutureTimeDriftPoS = 180;
         nMasternodeCountDrift = 20;
         nMaxMoneyOut = 2500627 * COIN;
 
@@ -148,6 +163,11 @@ public:
         nBlockDoubleAccumulated = 1050010;
         nEnforceNewSporkKey = 1525158000; //!> Sporks signed after (GMT): Tuesday, May 1, 2018 7:00:00 AM GMT must use the new spork key
         nRejectOldSporkKey = 1527811200; //!> Fully reject old spork key after (GMT): Friday, June 1, 2018 12:00:00 AM
+
+
+        nBlockStakeModifierlV2 = 103800; // CHANGE THIS COMDEMASTER
+        nPublicZCSpends = 1880000;
+
 
         // Fake Serial Attack
         nFakeSerialBlockheightEnd = 1686229;
@@ -240,6 +260,9 @@ public:
         nBudget_Fee_Confirmations = 6; // Number of confirmations for the finalization fee
 
         minimumStakingAmount = 5 * COIN;
+        minimumStakingAmount2 = 50 * COIN;
+        minimumStakingAmountV2BlockStart = 103800;
+
 
         blacklistedAddresses = std::set<std::string> {
             "LUCXKjriHA9shtd7TmpDcrHDhEhoz8dHWr",
@@ -279,10 +302,10 @@ public:
         nRejectBlockOutdatedMajority = 5472; // 95%
         nToCheckBlockUpgradeMajority = 5760; // 4 days
         nMinerThreads = 0;
-        nTargetTimespan = 2 * 60;
         nTargetSpacing = 2 * 60;
         nLastPOWBlock = 300;
         nMaturity = 15;
+        nStakeMinDepth = 100;
         nMasternodeCountDrift = 4;
         nModifierUpdateBlock = 51197; //approx Mon, 17 Apr 2017 04:00:00 GMT
         nMaxMoneyOut = 43199500 * COIN;
@@ -297,6 +320,9 @@ public:
         nBlockZerocoinV2 = INT_MAX; //!> The block that zerocoin v2 becomes active
         nEnforceNewSporkKey = 1521604800; //!> Sporks signed after Wednesday, March 21, 2018 4:00:00 AM GMT must use the new spork key
         nRejectOldSporkKey = 1522454400; //!> Reject old spork key after Saturday, March 31, 2018 12:00:00 AM GMT
+
+        nBlockStakeModifierlV2 = 103800; // Change this codemaster
+        nPublicZCSpends = 1106100;
 
         // Fake Serial Attack
         nFakeSerialBlockheightEnd = -1;
@@ -370,22 +396,24 @@ public:
         nRejectBlockOutdatedMajority = 950;
         nToCheckBlockUpgradeMajority = 1000;
         nMinerThreads = 1;
-        nTargetTimespan = 24 * 60 * 60; // LABX: 1 day
         nTargetSpacing = 2 * 60;        // LABX: 1 minutes
         bnProofOfWorkLimit = ~uint256(0) >> 1;
         nLastPOWBlock = 250;
         nMaturity = 100;
+        nStakeMinDepth = 0;
         nMasternodeCountDrift = 4;
         nModifierUpdateBlock = 0; //approx Mon, 17 Apr 2017 04:00:00 GMT
         nMaxMoneyOut = 43199500 * COIN;
         nZerocoinStartHeight = INT_MAX;
         nBlockZerocoinV2 = INT_MAX;
-        nZerocoinStartTime = INT_MAX
-                ;
+        nZerocoinStartTime = INT_MAX;
         nBlockEnforceSerialRange = 1; //Enforce serial range starting this block
         nBlockRecalculateAccumulators = 999999999; //Trigger a recalculation of accumulators
         nBlockFirstFraudulent = 999999999; //First block that bad serials emerged
         nBlockLastGoodCheckpoint = 999999999; //Last valid accumulator checkpoint
+
+        nBlockStakeModifierlV2 = std::numeric_limits<int>::max(); // max integer value (never switch on regtest)
+        nPublicZCSpends = 350;
 
         // Fake Serial Attack
         nFakeSerialBlockheightEnd = -1;

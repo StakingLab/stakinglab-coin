@@ -67,7 +67,7 @@ bool CheckBlockSignature(const CBlock& block)
      *  UTXO: The public key that signs must match the public key associated with the first utxo of the coinstake tx.
      */
     CPubKey pubkey;
-    bool fzLABXStake = block.vtx[1].IsZerocoinSpend();
+    bool fzLABXStake = block.vtx[1].vin[0].IsZerocoinSpend();
     if (fzLABXStake) {
         libzerocoin::CoinSpend spend = TxInToZerocoinSpend(block.vtx[1].vin[0]);
         pubkey = spend.getPubKey();

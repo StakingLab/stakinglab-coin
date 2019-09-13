@@ -388,7 +388,6 @@ public:
         return state;
     }
 
-    std::string GetStatus();
 
     int GetEntriesCount() const
     {
@@ -444,7 +443,7 @@ public:
     bool IsCompatibleWithSession(CAmount nAmount, CTransaction txCollateral, int& errorID);
 
     /// Passively run Obfuscation in the background according to the configuration in settings (only for QT)
-    bool DoAutomaticDenominating(bool fDryRun = false);
+//    bool DoAutomaticDenominating(bool fDryRun = false);
     bool PrepareObfuscationDenominate();
 
     /// Check for process in Obfuscation
@@ -467,7 +466,6 @@ public:
     /// Check that all inputs are signed. (Are all inputs signed?)
     bool SignaturesComplete();
     /// As a client, send a transaction to a Masternode to start the denomination process
-    void SendObfuscationDenominate(std::vector<CTxIn>& vin, std::vector<CTxOut>& vout, CAmount amount);
     /// Get Masternode updates about the progress of Obfuscation
     bool StatusUpdate(int newState, int newEntriesCount, int newAccepted, int& errorID, int newSessionID = 0);
 

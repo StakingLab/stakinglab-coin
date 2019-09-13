@@ -24,6 +24,7 @@ namespace libzerocoin {
  */
 class AccumulatorProofOfKnowledge {
 public:
+    AccumulatorProofOfKnowledge(){};
 	AccumulatorProofOfKnowledge(const AccumulatorAndProofParams* p);
 
 	/** Generates a proof that a commitment to a coin c was accumulated
@@ -35,8 +36,8 @@ public:
     AccumulatorProofOfKnowledge(const AccumulatorAndProofParams* p, const Commitment& commitmentToCoin, const AccumulatorWitness& witness);
 	/** Verifies that  a commitment c is accumulated in accumulated a
 	 */
-	bool Verify(const Accumulator& a,const CBigNum& valueOfCommitmentToCoin) const;
-	
+    bool Verify(const Accumulator& a,const CBigNum& valueOfCommitmentToCoin) const;
+
 	ADD_SERIALIZE_METHODS;
   template <typename Stream, typename Operation>  inline void SerializationOp(Stream& s, Operation ser_action, int nType, int nVersion) {
 	    READWRITE(C_e);

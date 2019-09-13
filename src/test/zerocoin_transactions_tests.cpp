@@ -10,6 +10,7 @@
 #include "wallet.h"
 #include "walletdb.h"
 #include "txdb.h"
+#include "zpiv/zpivmodule.h"
 #include <boost/test/unit_test.hpp>
 #include <iostream>
 
