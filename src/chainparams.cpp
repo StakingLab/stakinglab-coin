@@ -165,7 +165,7 @@ public:
         nRejectOldSporkKey = 1527811200; //!> Fully reject old spork key after (GMT): Friday, June 1, 2018 12:00:00 AM
 
 
-        nBlockStakeModifierlV2 = 103800; // CHANGE THIS COMDEMASTER
+        nBlockStakeModifierlV2 = 105680; // CHANGE THIS COMDEMASTER
         nPublicZCSpends = 1880000;
 
 
@@ -261,7 +261,7 @@ public:
 
         minimumStakingAmount = 5 * COIN;
         minimumStakingAmount2 = 50 * COIN;
-        minimumStakingAmountV2BlockStart = 103800;
+        minimumStakingAmountV2BlockStart = 105680;
 
 
         blacklistedAddresses = std::set<std::string> {
@@ -321,7 +321,7 @@ public:
         nEnforceNewSporkKey = 1521604800; //!> Sporks signed after Wednesday, March 21, 2018 4:00:00 AM GMT must use the new spork key
         nRejectOldSporkKey = 1522454400; //!> Reject old spork key after Saturday, March 31, 2018 12:00:00 AM GMT
 
-        nBlockStakeModifierlV2 = 103800; // Change this codemaster
+        nBlockStakeModifierlV2 = 105680; // Change this codemaster
         nPublicZCSpends = 1106100;
 
         // Fake Serial Attack
