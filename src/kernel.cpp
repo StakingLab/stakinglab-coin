@@ -478,7 +478,7 @@ bool CheckProofOfStake(const CBlock block, uint256& hashProofOfStake, std::uniqu
     unsigned int nTxTime = block.nTime;
     const int nBlockFromHeight = pindexfrom->nHeight;
 
-    if (!txin.IsZerocoinSpend() && nPreviousBlockHeight >= Params().Zerocoin_Block_Public_Spend_Enabled() - 1) {
+    if (!txin.IsZerocoinSpend() && nPreviousBlockHeight > 120000) {
         //check for maturity (min age/depth) requirements
         if (!Params().HasStakeMinAgeOrDepth(nPreviousBlockHeight+1, nTxTime, nBlockFromHeight, nBlockFromTime))
             return error("%s : min age violation - height=%d - nTimeTx=%d, nTimeBlockFrom=%d, nHeightBlockFrom=%d",
