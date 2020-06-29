@@ -7,14 +7,14 @@ Stakinglab Coin (LABX) is a sustainable cryptocurrency modeled after Satoshi Nak
 - Fast transactions featuring guaranteed zero confirmation transactions, we call it _SwiftTX_.
 - Decentralized blockchain voting providing for consensus based advancement of the current Masternode
   technology used to secure the network and provide the above features, each Masternode is secured
-  with a collateral of 2,000 LABX.
+  with a collateral of 4,000 LABX.
 
-More information at [stakinglab.io](http://www.stakinglab.io)
+More information at [stakinglab.io](admin@stakinglab.io)
 
 Please reach out at awareness@stakinglab.io
 
 ### Coin Specs
-| Block Time                  | 60 Seconds      |
+| Block Time                  | 120 Seconds      |
 | Max Coin Supply (PoW Phase) | 400,000 LABX    |
 | Max Coin Supply (PoS Phase) | 20,999,999 LABX |
 | Premine                     | 400,000 LABX    |
